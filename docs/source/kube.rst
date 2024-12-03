@@ -1,7 +1,7 @@
-Scaling [--solutionname--] With Kubernetes
+Scaling [cybersecuritywithprivategpt-4a57] With Kubernetes
 ===========================
 
-Generated On: --datetime-- UTC
+Generated On: 2024-12-03 14:25:47 UTC
 
 You can scale your solution with Kubernetes.  To do so, will will need to apply the following YAML files to your Kubernetes cluster.
 
@@ -33,13 +33,13 @@ You can scale your solution with Kubernetes.  To do so, will will need to apply 
    sudo systemctl restart docker
 
 
-Based on your TML solution [--solutionname--] - if you want to scale your application with Kubernetes - you will need to apply the following YAML files.
+Based on your TML solution [cybersecuritywithprivategpt-4a57] - if you want to scale your application with Kubernetes - you will need to apply the following YAML files.
 
 .. list-table::
 
    * - **YML File**
      - **Description**
-   * - :ref:`--solutionnamefile--`
+   * - :ref:`cybersecuritywithprivategpt-4a57.yml`
      - This is your main solution YAML file.  
  
        It MUST be applied to your Kubernetes cluster.
@@ -72,13 +72,13 @@ kubectl apply command
 
 .. code-block:: YAML
 
-   --kubectl--
+   kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f cybersecuritywithprivategpt-4a57.yml
 
---solutionnamefile--
+cybersecuritywithprivategpt-4a57.yml
 ------------------------
 
 .. important::
-   Copy and Paste this YAML file: --solutionnamefile-- - and save it locally.
+   Copy and Paste this YAML file: cybersecuritywithprivategpt-4a57.yml - and save it locally.
 
 .. attention::
 
@@ -98,8 +98,110 @@ kubectl apply command
 
 .. code-block:: YAML
 
-   ################# --solutionnamefile--
-   --solutionnamecode--
+   ################# cybersecuritywithprivategpt-4a57.yml
+   
+     apiVersion: apps/v1
+     kind: Deployment
+     metadata:
+       name: cybersecuritywithprivategpt-4a57
+     spec:
+       selector:
+         matchLabels:
+           app: cybersecuritywithprivategpt-4a57
+       replicas: 3 # tells deployment to run 1 pods matching the template
+       template:
+         metadata:
+           labels:
+             app: cybersecuritywithprivategpt-4a57
+         spec:
+           containers:
+           - name: cybersecuritywithprivategpt-4a57
+             image: jona.lyn.learning@gmail.com/cybersecuritywithprivategpt-4a57-amd64:latest
+             volumeMounts:
+             - name: dockerpath
+               mountPath: /var/run/docker.sock
+             ports:
+             - containerPort: 8883
+             - containerPort: 48715
+             - containerPort: 39625
+             - containerPort: 44969
+             env:
+             - name: TSS
+               value: '0'
+             - name: SOLUTIONNAME
+               value: 'cybersecuritywithprivategpt-4a57'
+             - name: SOLUTIONDAG
+               value: 'solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-4a57'
+             - name: GITUSERNAME
+               value: '167594225-myseneca'
+             - name: GITREPOURL
+               value: 'https://github.com/167594225-myseneca/cyt160-raspberrypi.git'
+             - name: SOLUTIONEXTERNALPORT
+               value: '44969'
+             - name: CHIP
+               value: 'amd64'
+             - name: SOLUTIONAIRFLOWPORT
+               value: '48715'
+             - name: SOLUTIONVIPERVIZPORT
+               value: '39625'
+             - name: DOCKERUSERNAME
+               value: 'jona.lyn.learning@gmail.com'
+             - name: CLIENTPORT
+               value: '8883'
+             - name: EXTERNALPORT
+               value: '39757'
+             - name: KAFKACLOUDUSERNAME
+               value: ''
+             - name: VIPERVIZPORT
+               value: '9005'
+             - name: MQTTUSERNAME
+               value: 'jonalyn'
+             - name: AIRFLOWPORT
+               value: '9000'
+             - name: GITPASSWORD
+               value: '<ENTER GITHUB PASSWORD>'
+             - name: KAFKACLOUDPASSWORD
+               value: '<Enter API secret>'
+             - name: MQTTPASSWORD
+               value: '<ENTER MQTT PASSWORD>'
+             - name: READTHEDOCS
+               value: '<ENTER READTHEDOCS TOKEN>'
+             - name: qip 
+               value: 'privategpt-service' # This is private GPT service in kubernetes
+             - name: KUBE
+               value: '1'
+           volumes: 
+           - name: dockerpath
+             hostPath:
+               path: /var/run/docker.sock
+   ---
+     apiVersion: v1
+     kind: Service
+     metadata:
+       name: cybersecuritywithprivategpt-4a57-service
+       labels:
+         app: cybersecuritywithprivategpt-4a57-service
+     spec:
+       type: NodePort #Exposes the service as a node ports
+       ports:
+       - port: 8883
+         name: p1
+         protocol: TCP
+         targetPort: 8883
+       - port: 48715
+         name: p2
+         protocol: TCP
+         targetPort: 48715
+       - port: 39625
+         name: p3
+         protocol: TCP
+         targetPort: 39625
+       - port: 44969
+         name: p4
+         protocol: TCP
+         targetPort: 44969
+       selector:
+         app: cybersecuritywithprivategpt-4a57
 
 .. tip::
 
